@@ -1,3 +1,3 @@
-package day2
+package day22
 
 func main() {}
