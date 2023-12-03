@@ -8,6 +8,11 @@ import (
 )
 
 func main() {
+	part1()
+	part2()
+}
+
+func part1() {
 	f, err := os.Open("./input")
 	if err != nil {
 		panic(err)
@@ -50,7 +55,55 @@ func main() {
 		}
 	}
 
-	println(sum)
+	println("Part 1:", sum)
+}
+func part2() {
+	f, err := os.Open("./input")
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	sum := 0
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		text := scanner.Text()
+		_, rest := getGameId(text)
+		arrGames := strings.Split(rest, "; ")
+
+		minRed := 0
+		minGreen := 0
+		minBlue := 0
+
+		for _, str := range arrGames {
+			pulls := strings.Split(str, ", ")
+			for _, pull := range pulls {
+				colors := strings.Split(pull, " ")
+				amount, _ := strconv.Atoi(colors[0])
+				switch colors[1] {
+				case "red":
+					if amount > minRed {
+						minRed = amount
+					}
+				case "green":
+					if amount > minGreen {
+						minGreen = amount
+					}
+				case "blue":
+					if amount > minBlue {
+						minBlue = amount
+					}
+				}
+			}
+		}
+
+		power := minRed * minGreen * minBlue
+		sum += power
+	}
+
+	println("Part 2:", sum)
 }
 
 func getGameId(text string) (int, string) {
