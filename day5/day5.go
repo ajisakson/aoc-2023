@@ -13,7 +13,7 @@ func main() {
 func part1() {
 	sum := 0
 
-	f, err := os.Open("input")
+	f, err := os.Open("test")
 	if err != nil {
 		panic(err)
 	}
@@ -26,6 +26,7 @@ func part1() {
 	}
 
 	println(sum)
+
 }
 
 func part2() {
